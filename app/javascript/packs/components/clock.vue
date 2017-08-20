@@ -42,18 +42,18 @@ module.exports = {
     start() {
       this.clock = setInterval(() => {
         this.activity.duration = ++this.totalSeconds
-        this.hours = padZero(this.minutes/60)
-        this.minutes = padZero(this.totalSeconds/60)
         this.seconds = padZero(this.totalSeconds%60)
+        this.minutes = padZero(this.totalSeconds/60)
+        this.hours = padZero(this.minutes/60)
       }, 1000);
 
       this.$emit('clockStart')
     },
     stop() {
       clearInterval(this.clock)
-      
+
       this.$emit('clockStop')
-    },    
+    },
     reset() {
       Object.assign(this.$data, this.$options.data());
     }

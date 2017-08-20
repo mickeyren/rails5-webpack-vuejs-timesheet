@@ -7,13 +7,13 @@
 
         <div class="entries">
           <div class="row" v-for="activity in activities">
-            <div class="col">{{ activity.duration }}</div>
+            <div class="col">{{ formatDuration(activity.duration) }}</div>
             <div class="col-9">{{ activity.notes }}</div>
           </div>
-            
+
           <div class="row">
             <div class="col">
-              1h 45m –
+              1h 45m
             </div>
             <div class="col-9">
               create initial base files for a vuejs timesheet tracker
@@ -21,7 +21,7 @@
           </div>
           <div class="row">
             <div class="col">
-              40m –
+              40m
             </div>
             <div class="col-9">
               initial work on the timer component
@@ -36,10 +36,24 @@
 
 <script>
 export default{
-    computed: {
-        activities(){
-          return this.$store.state.activities
-        }
+  methods: {
+    formatDuration(duration) {
+      let seconds = Math.floor(duration % 60)
+      let minutes = Math.floor(duration / 60)
+      let hours = Math.floor(minutes / 60)
+
+      let text = []
+      if(hours) text.push(hours + 'h')
+      if(minutes) text.push(minutes + 'm')
+      if(seconds) text.push(seconds + 's')
+
+      return text.join(' ')
     }
+  },
+  computed: {
+    activities(){
+      return this.$store.state.activities
+    }
+  }
 }
 </script>

@@ -35,10 +35,10 @@ export default {
         notes: this.activity.notes,
         duration: this.activity.duration
       })
-      
+
       // reset data
       Object.assign(this.$data, this.$options.data())
-      
+
       this.$refs.clock.reset()
     },
     clockStop() {
