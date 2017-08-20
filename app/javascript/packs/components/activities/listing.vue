@@ -6,6 +6,12 @@
         <p><strong>18 August</strong> Saturday</p>
 
         <div class="entries">
+          count: {{activities.length}}
+          <div class="row" v-for="activity in activities">
+            <div class="col">{{ activity.duration }}</div>
+            <div class="col-9">{{ activity.notes }}</div>
+          </div>
+            
           <div class="row">
             <div class="col">
               1h 45m –
@@ -28,3 +34,13 @@
     </div>
   </div>
 </template>
+
+<script>
+export default{
+    computed: {
+        activities(){
+          return this.$store.state.activities
+        }
+    }
+}
+</script>
