@@ -2,11 +2,13 @@
   <div class="card my-4">
       <h5 class="card-header">Timer</h5>
       <div class="card-body">
-        <Clock :activity=activity ref="clock" />
-        <div class="comment">
-          <textarea class="form-control" placeholder="Optional comment" v-model="activity.notes"></textarea>
+        <Clock :activity="activity" ref="clock" @clockStop="clockStop" />
+        <div v-if="showComment">
+          <div class="comment">
+            <textarea class="form-control" placeholder="Optional comment" v-model="activity.notes"></textarea>
+          </div>
+          <button class="btn btn-primary" type="button" @click="save">Save</button>
         </div>
-        <button class="btn btn-primary" type="button" @click="save">Save</button>
       </div>
   </div>
 </template>
@@ -20,6 +22,7 @@ export default {
   },
   data() {
     return {
+      showComment: false,
       activity: {
         notes: '',
         duration: 0
@@ -32,14 +35,15 @@ export default {
         notes: this.activity.notes,
         duration: this.activity.duration
       })
-      this.activity = {
-        notes: '',
-        duration: 0
-      }
-      this.$refs.clock.stop()
+      
+      // reset data
+      Object.assign(this.$data, this.$options.data())
+      
+      this.$refs.clock.reset()
+    },
+    clockStop() {
+      this.showComment = true
     }
-  },
-  computed: {
   }
 }
 </script>

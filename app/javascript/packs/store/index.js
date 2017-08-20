@@ -1,5 +1,3 @@
-// start 11:30
-
 import Vue from 'vue'
 import Vuex from 'vuex'
 

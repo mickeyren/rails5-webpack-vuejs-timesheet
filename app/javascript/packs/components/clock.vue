@@ -46,12 +46,16 @@ module.exports = {
         this.minutes = padZero(this.totalSeconds/60)
         this.seconds = padZero(this.totalSeconds%60)
       }, 1000);
+
+      this.$emit('clockStart')
     },
     stop() {
       clearInterval(this.clock)
-      this.clock = null
-
-      this.hours = this.minutes = this.seconds = this.totalSeconds = padZero(0)
+      
+      this.$emit('clockStop')
+    },    
+    reset() {
+      Object.assign(this.$data, this.$options.data());
     }
   }
 };
