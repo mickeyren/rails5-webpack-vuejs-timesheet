@@ -2,9 +2,9 @@
   <div class="card my-4">
       <h5 class="card-header">Timer</h5>
       <div class="card-body">
-        <Clock :blink="true" :display-seconds="true" />
+        <Clock :activity=activity ref="clock" />
         <div class="comment">
-          <textarea class="form-control" placeholder="Optional comment" v-model="notes"></textarea>
+          <textarea class="form-control" placeholder="Optional comment" v-model="activity.notes"></textarea>
         </div>
         <button class="btn btn-primary" type="button" @click="save">Save</button>
       </div>
@@ -20,14 +20,23 @@ export default {
   },
   data() {
     return {
-      notes: ''
+      activity: {
+        notes: '',
+        duration: 0
+      }
     }
   },
   methods: {
     save() {
       this.$store.dispatch('addActivity', {
-        notes: this.notes
+        notes: this.activity.notes,
+        duration: this.activity.duration
       })
+      this.activity = {
+        notes: '',
+        duration: 0
+      }
+      this.$refs.clock.stop()
     }
   },
   computed: {

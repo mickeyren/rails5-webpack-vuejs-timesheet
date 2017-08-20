@@ -25,7 +25,7 @@ function padZero(number) {
 
 module.exports = {
   name: 'clock',
-  props: ['blink', 'displaySeconds'],
+  props: ['activity'],
   data() {
     return {
       totalSeconds: 0,
@@ -35,16 +35,13 @@ module.exports = {
       seconds: padZero(0),
     };
   },
-  created() {
-
-  },
   destroyed() {
     clearInterval(this.clock)
   },
   methods: {
     start() {
       this.clock = setInterval(() => {
-        ++this.totalSeconds
+        this.activity.duration = ++this.totalSeconds
         this.hours = padZero(this.minutes/60)
         this.minutes = padZero(this.totalSeconds/60)
         this.seconds = padZero(this.totalSeconds%60)
@@ -53,6 +50,8 @@ module.exports = {
     stop() {
       clearInterval(this.clock)
       this.clock = null
+
+      this.hours = this.minutes = this.seconds = this.totalSeconds = padZero(0)
     }
   }
 };
